@@ -8,7 +8,7 @@ const getMeData = async (req, res, next) => {
       .sort('date')
       .lean();
     res.json({
-      name: 'Me',
+      name: 'C',
       message: 'Fetched data successfully.',
       data: meData,
     });
