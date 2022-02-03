@@ -2,16 +2,50 @@ import { validationResult } from 'express-validator';
 import HttpError from '../models/http-error.js';
 import Me from '../models/me.js';
 
-const getMeData = async (req, res, next) => {
+export const getMeHData = async (req, res, next) => {
   try {
-    let firstDay = new Date();
-    firstDay.setDate(firstDay.getDate() - 15);
-    const strFirstDay = firstDay.toLocaleDateString('en-CA');
+    const meHData = await Me.find({}, { _id: 0, me: 1 })
+      .sort({ me: -1 })
+      .limit(1)
+      .lean();
+    res.json({
+      name: 'C',
+      message: 'Fetched data successfully.',
+      data: meHData[0].me,
+    });
+  } catch (err) {
+    const error = new HttpError('Fetching me data failed.', 500);
+    return next(error);
+  }
+};
+
+export const getMeLData = async (req, res, next) => {
+  try {
+    const meLData = await Me.find({}, { _id: 0, me: 1 })
+      .sort({ me: 1 })
+      .limit(1)
+      .lean();
+    res.json({
+      name: 'C',
+      message: 'Fetched data successfully.',
+      data: meLData[0].me,
+    });
+  } catch (err) {
+    const error = new HttpError('Fetching me data failed.', 500);
+    return next(error);
+  }
+};
+
+export const getMeData = async (req, res, next) => {
+  try {
+    // let firstDay = new Date();
+    // firstDay.setDate(firstDay.getDate() - 15);
+    // const strFirstDay = firstDay.toLocaleDateString('en-CA');
     const meData = await Me.find(
       {
-        date: {
-          $gte: strFirstDay,
-        },
+        // date: {
+        //   $gte: strFirstDay,
+        // },
       },
       { _id: 0, date: 1, me: 1 }
     )
@@ -28,7 +62,7 @@ const getMeData = async (req, res, next) => {
   }
 };
 
-const createMeData = async (req, res, next) => {
+export const createMeData = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(new HttpError(errors.errors[0].msg, 422));
@@ -46,5 +80,5 @@ const createMeData = async (req, res, next) => {
   res.status(201).json({ message: 'Data created!' });
 };
 
-export { getMeData };
-export { createMeData };
+//export { getMeData };
+//export { createMeData };

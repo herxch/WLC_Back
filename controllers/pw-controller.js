@@ -3,7 +3,7 @@ import WlPw from '../models/pw.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const getPwData = async (req, res, next) => {
+export const getPwData = async (req, res, next) => {
   const { user, password } = req.body;
   let isValidPassword = false;
   try {
@@ -35,7 +35,7 @@ const getPwData = async (req, res, next) => {
   }
 };
 
-const createPwData = async (req, res, next) => {
+export const createPwData = async (req, res, next) => {
   // const errors = validationResult(req);
   // if (!errors.isEmpty()) {
   //   return next(new HttpError(errors.errors[0].msg, 422));
@@ -61,5 +61,5 @@ const createPwData = async (req, res, next) => {
   res.status(201).json({ message: 'Pw created!' });
 };
 
-export { getPwData };
-export { createPwData };
+//export { getPwData };
+//export { createPwData };

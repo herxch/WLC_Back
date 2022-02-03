@@ -1,10 +1,14 @@
 import { Router } from 'express';
-import { getXData } from '../controllers/x-controller.js';
+import { getXData, getXHData, getXLData } from '../controllers/x-controller.js';
 import { createXData } from '../controllers/x-controller.js';
 import { check } from 'express-validator';
 import checkAuth from '../middleware/check-auth.js';
 
 const router = Router();
+
+router.get('/h', getXHData);
+
+router.get('/l', getXLData);
 
 router.get('/', getXData);
 
