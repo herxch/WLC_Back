@@ -4,7 +4,17 @@ import X from '../models/x.js';
 
 const getXData = async (req, res, next) => {
   try {
-    const xData = await X.find({}, { _id: 0, date: 1, x: 1 })
+    let firstDay = new Date();
+    firstDay.setDate(firstDay.getDate() - 15);
+    const strFirstDay = firstDay.toLocaleDateString('en-CA');
+    const xData = await X.find(
+      {
+        date: {
+          $gte: strFirstDay,
+        },
+      },
+      { _id: 0, date: 1, x: 1 }
+    )
       .sort('date')
       .lean();
     res.json({ name: 'X', message: 'Fetched data successfully.', data: xData });

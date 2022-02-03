@@ -4,7 +4,17 @@ import Me from '../models/me.js';
 
 const getMeData = async (req, res, next) => {
   try {
-    const meData = await Me.find({}, { _id: 0, date: 1, me: 1 })
+    let firstDay = new Date();
+    firstDay.setDate(firstDay.getDate() - 15);
+    const strFirstDay = firstDay.toLocaleDateString('en-CA');
+    const meData = await Me.find(
+      {
+        date: {
+          $gte: strFirstDay,
+        },
+      },
+      { _id: 0, date: 1, me: 1 }
+    )
       .sort('date')
       .lean();
     res.json({
