@@ -17,4 +17,3 @@ router.use(checkAuth);
 router.post('/', check('x').isNumeric(), createXData);
 
 export default router;
-3333;
