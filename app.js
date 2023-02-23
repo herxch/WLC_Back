@@ -39,7 +39,7 @@ mongoose
     `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`
   )
   .then((result) => {
-    app.listen(process.env.PORT || 443);
+    app.listen(process.env.PORT || 80);
   })
   .catch((err) => {
     console.error(err);
