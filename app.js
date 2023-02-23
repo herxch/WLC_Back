@@ -16,14 +16,17 @@ app.use((req, res, next) => {
   );
   res.setHeader('Access-Control-Expose-Headers', 'username');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.write('<h1>Hello</h1>');
-  res.end();
   next();
 });
 
 app.use('/api/me', meDataRoutes);
 app.use('/api/x', xDataRoutes);
 app.use('/api/pw', pwRoutes);
+
+app.use('/', (req, res, next) => {
+  res.write('<h1>HelloW</h1>');
+  res.end();
+});
 
 app.use((error, req, res, next) => {
   if (res.headerSent) {
