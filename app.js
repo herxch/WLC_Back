@@ -1,31 +1,31 @@
-import express from "express";
-import mongoose from "mongoose";
+import express from 'express';
+import mongoose from 'mongoose';
 
 // import meDataRoutes from "./routes/me-routes";
 // import xDataRoutes from "./routes/x-routes";
-import pwRoutes from "./routes/pw-routes.js";
-import weightRoutes from "./routes/weight-routes.js";
-import { get404, get500 } from "./controllers/error-controller.js";
+import pwRoutes from './routes/pw-routes.js';
+import weightRoutes from './routes/weight-routes.js';
+import { get404, get500 } from './controllers/error-controller.js';
 
 const app = express();
 app.use(express.json());
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE"
+    'Access-Control-Allow-Methods',
+    'GET, POST, PUT, PATCH, DELETE'
   );
-  res.setHeader("Access-Control-Expose-Headers", "username");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader('Access-Control-Expose-Headers', 'username');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
 
 // app.use("/api/me", meDataRoutes);
 // app.use("/api/x", xDataRoutes);
-app.use("/api/pw", pwRoutes);
+app.use('/api/pw', pwRoutes);
 
-app.use("/api/:name", weightRoutes);
+app.use('/api', weightRoutes);
 
 app.use(get500);
 
